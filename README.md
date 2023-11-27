@@ -36,50 +36,23 @@ Incluir push notification diaria con frase motivacional.
 
 * Requisitos No Funcionales:
 
-**Rendimiento:**
-
-No hay restricciones específicas de tiempo de carga o eficiencia en el uso de memoria.
-
-**Accesibilidad:**
-
-No hay requisitos específicos de accesibilidad.
-
-**Multilingüe:**
-
-No se requiere soporte multilingüe.
-
-**Plataformas:**
-
-Sin restricciones de plataformas específicas (iOS, Android).
-
-
-**Notificaciones:**
-
+No hay.
 
 2. Definición de los objetivos y metas que la aplicación busca alcanzar.
 
 * Objetivos y Metas:
-**Propósito Principal:**
 
-Facilitar a usuarios principiantes el seguimiento y desarrollo de hábitos.
-Mejorar la autocontrol y progreso en actividades diarias.
-Ser una herramienta temporal para mejorar, no necesariamente de uso constante.
-
-**Métricas de Éxito:**
-
-No hay métricas específicas establecidas.
-
-**Fomentar Creación y Rastreo:**
-
-Fomentar tanto la creación como el seguimiento de hábitos.
-
-**Metas Cuantificables:**
-
-No hay objetivos específicos en términos de la cantidad de hábitos rastreados o usuarios atraídos.
+Facilitar a usuarios el seguimiento y desarrollo de hábitos en la vida diaria.
+Mejorar el autocontrol y progreso en actividades diarias.
+Ser una herramienta temporal para mejorar, no necesariamente de uso constante. Se espera que los usuarios lleguen a ser mejores a tal punto que no necesiten la aplicación para sus hábitos.
 
 ## Descripción del Usuario
 
 1. Creación de perfiles de usuario detallados, incluyendo características demográficas, necesidades y preferencias.
+
+
+
+
 2. Desarrollo de un escenario de uso que ilustre cómo los usuarios interactuarán con la aplicación.
 
 ## Diseño de Wireframes y Diagrama de Flujo
