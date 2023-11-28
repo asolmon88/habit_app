@@ -105,7 +105,7 @@ class RegisterScreen extends StatelessWidget {
                   const SizedBox(height: 25),
 
                   CustomButton(
-                    title: 'Crear cuenta',
+                    title: 'Create account',
                     onTap: () => signUp(context, authCubit),
                   ),
                   const SizedBox(height: 25),
