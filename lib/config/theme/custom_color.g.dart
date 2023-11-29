@@ -32,7 +32,7 @@ CustomColors lightCustomColors = const CustomColors(
 CustomColors darkCustomColors = const CustomColors(
   sourceButton: Color(0xFF9A85FC),
   button: Color(0xFFCABEFF),
-  onButton: Color(0xFF320F8F),
+  onButton: Color(0xFF826EDA),
   buttonContainer: Color(0xFF4930A5),
   onButtonContainer: Color(0xFFE6DEFF),
   sourceBackground: Color(0xFF353D48),
