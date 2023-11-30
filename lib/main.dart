@@ -5,6 +5,7 @@ import 'package:habit_app/config/router/app_router.dart';
 import 'package:habit_app/config/theme/app_theme.dart';
 import 'package:habit_app/firebase_options.dart';
 import 'package:habit_app/presentation/bloc.dart';
+import 'package:habit_app/presentation/bloc/cubit/habits_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +18,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthCubit(),),
+        BlocProvider(create: (context) => HabitsCubit(),),
       ],
       child: const MainApp(),
     ),

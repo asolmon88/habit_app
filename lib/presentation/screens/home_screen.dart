@@ -1,24 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habit_app/config/theme/custom_color.g.dart';
+import 'package:habit_app/presentation/bloc.dart';
+import 'package:habit_app/presentation/bloc/cubit/habits_cubit.dart';
 import 'package:habit_app/presentation/widgets.dart';
-import 'package:habit_app/presentation/widgets/home_screen/daily_habits_list.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<HabitsCubit>().getHabits(
+      'ariel@hotmail.com'
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     
     final colors = Theme.of(context).extension<CustomColors>()!;
-    final rowCount = 1;
-    final columnCount = 2;
+
+    // final email = context.watch<AuthCubit>().state.email;
+    final name = context.watch<AuthCubit>().state.name;
+    // final lastname = context.watch<AuthCubit>().state.lastname;
+
+    final dailyHabits = (context.watch<HabitsCubit>().state.dailyHabits)[0];
+
+    final rowCount = (dailyHabits.keys.length/2).ceil();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Welcome, Name',
-          style: TextStyle(
+        title: Text(
+          'Welcome, $name',
+          style: const TextStyle(
             fontWeight: FontWeight.w500
           ),
         ),
@@ -38,7 +60,17 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 50,),
                 const PeriodHabitCard(
                   title: 'Daily habits',
+                  value: 0.65,
+                ),
+                const SizedBox(height: 15,),
+                const PeriodHabitCard(
+                  title: 'Montly habits',
                   value: 0.3,
+                ),
+                const SizedBox(height: 15,),
+                const PeriodHabitCard(
+                  title: 'Yearly habits',
+                  value: 0.9,
                 ),
                 const SizedBox(height: 50,),
                 Row(
@@ -70,7 +102,8 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 20,),
                 DailyHabitsList(
                   rowCount: rowCount,
-                  columnCount: columnCount,
+                  columnCount: 2,
+                  habits: dailyHabits,
                 )
               ]
             ),

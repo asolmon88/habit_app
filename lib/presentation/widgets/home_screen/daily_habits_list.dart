@@ -5,11 +5,13 @@ class DailyHabitsList extends StatelessWidget {
 
   final int rowCount;
   final int columnCount;
+  final Map<String, dynamic>? habits;
 
   const DailyHabitsList({
     super.key,
     this.rowCount = 1,
     this.columnCount = 2,
+    this.habits,
   });
 
   @override
@@ -24,15 +26,26 @@ class DailyHabitsList extends StatelessWidget {
               columnCount,
               (columnIndex) {
                 final index = rowIndex * columnCount + columnIndex;
-                return const Flexible(
-                  child: HabitCard(
-                    title: 'Drink Water',
-                    value: 0.7,
-                    endValue: 3000,
-                    currentValue: 2000,
-                    metric: 'ml',
-                  ),
-                );
+                if (habits != null) {
+                  if (index != habits!.length) {
+                    final title = habits!.keys.elementAt(index);
+                    final currentHabit = habits![title];
+                    return Flexible(
+                      child: HabitCard(
+                        title: title,
+                        value: int.parse(currentHabit['current_value'])
+                              /int.parse(currentHabit['end_value']),
+                        endValue: currentHabit['end_value'],
+                        currentValue: currentHabit['current_value'],
+                        metric: currentHabit['metric'],
+                      ),
+                    );
+                  } else {
+                    return const Expanded(child: SizedBox());
+                  }
+                } else {
+                  return const Text('All done for today!');
+                }
               }
             ),
           );

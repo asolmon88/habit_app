@@ -10,7 +10,7 @@ final appRouter = GoRouter(
     final isAuth = context.read<AuthCubit>().state.isAuth;
     final isCreatingAccount = context.read<AuthCubit>().state.isCreatingAccount;
     if (!isAuth && !isCreatingAccount) {
-      return '/';
+      return '/login';
     } else {
       return null;
     }
