@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_app/config/theme/custom_color.g.dart';
 
 class NormalText extends StatelessWidget {
 
@@ -11,10 +12,14 @@ class NormalText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final colors = Theme.of(context).extension<CustomColors>()!;
+
     return Text(
       text,
-      style: const TextStyle(
-        fontFamily: 'Comfortaa'
+      style: TextStyle(
+        fontFamily: 'Comfortaa',
+        color: colors.sourceText,
       ),
     );
   }
