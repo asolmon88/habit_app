@@ -30,7 +30,7 @@ class PeriodHabitCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
         child: GestureDetector(
-          onTap: (){},
+          onTap: onTap,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

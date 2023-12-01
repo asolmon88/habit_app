@@ -28,5 +28,11 @@ final appRouter = GoRouter(
       path: '/register',
       builder:(context, state) => RegisterScreen(),
     ),
+    GoRoute(
+      path: '/dailyHabits',
+      builder:(context, state) => const HabitsScreen(
+        title: 'Daily Habits',
+      ),
+    ),
   ]
 );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habit_app/config/theme/custom_color.g.dart';
+import 'package:habit_app/infrastructure/utils.dart';
 import 'package:habit_app/presentation/bloc.dart';
 import 'package:habit_app/presentation/bloc/cubit/habits_cubit.dart';
 import 'package:habit_app/presentation/widgets.dart';
@@ -21,18 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<HabitsCubit>().getHabits(
       'ariel@hotmail.com'
     );
-  }
-
-  double calculateProgress(Map<String, dynamic> habitsList) {
-    double progress = 0;
-    double percentage = 1/habitsList.keys.length;
-    for (var element in habitsList.keys) {
-      progress += int.parse(habitsList[element]['current_value'])
-                  *percentage
-                  /int.parse(habitsList[element]['end_value'])
-                  .ceil();
-    }
-    return progress;
   }
 
   @override
@@ -72,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 PeriodHabitCard(
                   title: 'Daily habits',
                   value: dailyHabitsProgress,
+                  onTap: () => context.push('/dailyHabits'),
                 ),
                 const SizedBox(height: 15,),
                 const PeriodHabitCard(

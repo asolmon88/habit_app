@@ -9,7 +9,7 @@ class HabitCard extends StatelessWidget {
   final String endValue;
   final String currentValue;
   final String? metric;
-  final bool? edit;
+  final bool edit;
   final void Function()? onTap;
 
   const HabitCard({
@@ -20,7 +20,7 @@ class HabitCard extends StatelessWidget {
     this.endValue = '',
     this.currentValue = '',
     this.metric,
-    this.edit,
+    this.edit = false,
     this.onTap,
   });
 
@@ -38,7 +38,7 @@ class HabitCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         child: GestureDetector(
-          onTap: (){},
+          onTap: edit == false ? (){} : onTap,
           child: SizedBox(
             width: 90,
             height: 114,
@@ -63,7 +63,7 @@ class HabitCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 15,),
-                edit == null ? Text(
+                edit == false ? Text(
                   '$currentValue/$endValue $metric',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
@@ -71,7 +71,10 @@ class HabitCard extends StatelessWidget {
                     color: colors.sourceText,
                   ),
                   textAlign: TextAlign.center,
-                ) : const Icon(Icons.arrow_forward_ios),
+                ) : const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 12,
+                ),
               ],
             ),
           ),
