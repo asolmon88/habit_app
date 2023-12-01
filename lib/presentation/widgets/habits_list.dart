@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:habit_app/presentation/widgets.dart';
 
-class DailyHabitsList extends StatelessWidget {
+class HabitsList extends StatelessWidget {
 
   final int rowCount;
   final int columnCount;
   final Map<String, dynamic>? habits;
+  final bool edit;
 
-  const DailyHabitsList({
+  const HabitsList({
     super.key,
     this.rowCount = 1,
     this.columnCount = 2,
     this.habits,
+    this.edit = false,
   });
 
   @override
@@ -38,6 +40,7 @@ class DailyHabitsList extends StatelessWidget {
                         endValue: currentHabit['end_value'],
                         currentValue: currentHabit['current_value'],
                         metric: currentHabit['metric'],
+                        edit: edit,
                       ),
                     );
                   } else {

@@ -23,6 +23,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  double calculateProgress(Map<String, dynamic> habitsList) {
+    double progress = 0;
+    double percentage = 1/habitsList.keys.length;
+    for (var element in habitsList.keys) {
+      progress += int.parse(habitsList[element]['current_value'])
+                  *percentage
+                  /int.parse(habitsList[element]['end_value'])
+                  .ceil();
+    }
+    return progress;
+  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -33,8 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // final lastname = context.watch<AuthCubit>().state.lastname;
 
     final dailyHabits = (context.watch<HabitsCubit>().state.dailyHabits)[0];
-
-    final rowCount = (dailyHabits.keys.length/2).ceil();
+    final dailyHabitsProgress = calculateProgress(dailyHabits);
 
     return Scaffold(
       appBar: AppBar(
@@ -58,9 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   rightText: 'STATISTICS',
                 ),
                 const SizedBox(height: 50,),
-                const PeriodHabitCard(
+                PeriodHabitCard(
                   title: 'Daily habits',
-                  value: 0.65,
+                  value: dailyHabitsProgress,
                 ),
                 const SizedBox(height: 15,),
                 const PeriodHabitCard(
@@ -100,9 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const SizedBox(height: 20,),
-                DailyHabitsList(
-                  rowCount: rowCount,
-                  columnCount: 2,
+                HabitsList(
                   habits: dailyHabits,
                 )
               ]
