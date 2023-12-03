@@ -39,4 +39,11 @@ class HabitsCubit extends Cubit<HabitsState> {
     },);
   }
 
+  Future<void> addHabit(String collectionPath, String document, String name,
+    double currentValue, double endValue, String metric, bool status)
+  async {
+    await FirestoreService().addHabit(collectionPath, document, name,
+    currentValue, endValue, metric, status);
+    getHabits(collectionPath);
+  }
 }

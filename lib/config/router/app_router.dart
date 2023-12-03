@@ -10,7 +10,7 @@ final appRouter = GoRouter(
     final isAuth = context.read<AuthCubit>().state.isAuth;
     final isCreatingAccount = context.read<AuthCubit>().state.isCreatingAccount;
     if (!isAuth && !isCreatingAccount) {
-      return '/login';
+      return '/addHabit';
     } else {
       return null;
     }
@@ -33,6 +33,22 @@ final appRouter = GoRouter(
       builder:(context, state) => const HabitsScreen(
         title: 'Daily Habits',
       ),
+    ),
+    GoRoute(
+      path: '/monthlyHabits',
+      builder:(context, state) => const HabitsScreen(
+        title: 'Montly Habits',
+      ),
+    ),
+    GoRoute(
+      path: '/yearlyHabits',
+      builder:(context, state) => const HabitsScreen(
+        title: 'Yearly Habits',
+      ),
+    ),
+    GoRoute(
+      path: '/addHabit',
+      builder:(context, state) => AddModifyHabitScreen(),
     ),
   ]
 );

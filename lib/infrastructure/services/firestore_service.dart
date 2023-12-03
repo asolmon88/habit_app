@@ -9,15 +9,21 @@ class FirestoreService {
     .get();
   }
 
-  // Future<void> addPost(String collectionPath, String email, String message)
-  //   async {
-  //     FirebaseFirestore.instance.collection(collectionPath).add({
-  //       'email': email,
-  //       'message': message,
-  //       'timestamp': Timestamp.now(),
-  //       'likes': []
-  //   });
-  // }
+  Future<void> addHabit(String collectionPath, String document, String name,
+    double currentValue, double endValue, String metric, bool status)
+    async {
+      DocumentReference postRef = FirebaseFirestore.instance
+        .collection(collectionPath).doc(document);
+      postRef.update({
+        name: {
+          'current_value': currentValue,
+          'end_value': endValue,
+          'metric': metric,
+          'status': status,
+          'past_dates': []
+        }
+      });
+  }
 
   // void likePost(String collectionPath, String id, bool isLiked, String email) {
   //   DocumentReference postRef = FirebaseFirestore.instance
