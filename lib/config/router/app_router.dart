@@ -18,7 +18,9 @@ final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder:(context, state) => const HomeScreen(),
+      builder:(context, state) => HomeScreen(
+        user: context.read<AuthCubit>().state.email
+      ),
     ),
     GoRoute(
       path: '/login',
@@ -33,6 +35,22 @@ final appRouter = GoRouter(
       builder:(context, state) => const HabitsScreen(
         title: 'Daily Habits',
       ),
+    ),
+    GoRoute(
+      path: '/monthlyHabits',
+      builder:(context, state) => const HabitsScreen(
+        title: 'Montly Habits',
+      ),
+    ),
+    GoRoute(
+      path: '/yearlyHabits',
+      builder:(context, state) => const HabitsScreen(
+        title: 'Yearly Habits',
+      ),
+    ),
+    GoRoute(
+      path: '/addHabit',
+      builder:(context, state) => AddHabitScreen(),
     ),
   ]
 );

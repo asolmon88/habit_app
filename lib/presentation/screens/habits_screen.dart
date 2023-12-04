@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habit_app/config/theme/custom_color.g.dart';
 import 'package:habit_app/infrastructure/utils.dart';
 import 'package:habit_app/presentation/bloc/cubit/habits_cubit.dart';
@@ -37,10 +38,13 @@ class _HabitsScreenState extends State<HabitsScreen> {
     final habits = (context.watch<HabitsCubit>().state.dailyHabits)[0];
 
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 50,
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(15, 50, 15, 15),
+            padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children:[
@@ -48,7 +52,7 @@ class _HabitsScreenState extends State<HabitsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _edit == false ? GestureDetector(
-                      onTap: onTapEdit,
+                      onTap: () => context.push('/addHabit'),
                       child: Text(
                         'Add',
                         style: TextStyle(

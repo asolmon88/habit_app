@@ -7,3 +7,6 @@ export 'widgets/home_screen/custom_header.dart';
 export './widgets/habit_card.dart';
 export './widgets/period_habit_card.dart';
 export 'widgets/habits_list.dart';
+export './widgets/custom_text_form_field.dart';
+export './widgets/loading_circle.dart';
+export './widgets/home_screen/user_habits_details.dart';
