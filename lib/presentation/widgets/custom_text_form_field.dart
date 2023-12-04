@@ -48,6 +48,7 @@ class CustomTextFormField extends StatelessWidget {
       onChanged: onChanged,
       validator: validator,
       inputFormatters: inputFormatters,
+      autovalidateMode: AutovalidateMode.disabled,
 
       decoration: InputDecoration(
         label: (label != null) ? Text(label!) : null,

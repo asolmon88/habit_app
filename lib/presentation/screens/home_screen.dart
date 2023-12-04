@@ -8,7 +8,13 @@ import 'package:habit_app/presentation/bloc/cubit/habits_cubit.dart';
 import 'package:habit_app/presentation/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+
+  final String user;
+
+  const HomeScreen({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -20,95 +26,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<HabitsCubit>().getHabits(
-      'ariel@hotmail.com'
+      context.read<AuthCubit>().state.email
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    
-    final colors = Theme.of(context).extension<CustomColors>()!;
 
-    // final email = context.watch<AuthCubit>().state.email;
-    final name = context.watch<AuthCubit>().state.name;
-    // final lastname = context.watch<AuthCubit>().state.lastname;
-
-    final dailyHabits = (context.watch<HabitsCubit>().state.dailyHabits)[0];
-    final dailyHabitsProgress = calculateProgress(dailyHabits);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Welcome, $name',
-          style: const TextStyle(
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        toolbarHeight: 80,
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const CustomHeader(
-                  leftText: 'TODAY',
-                  rightText: 'STATISTICS',
-                ),
-                const SizedBox(height: 50,),
-                PeriodHabitCard(
-                  title: 'Daily habits',
-                  value: dailyHabitsProgress,
-                  onTap: () => context.push('/dailyHabits'),
-                ),
-                const SizedBox(height: 15,),
-                const PeriodHabitCard(
-                  title: 'Montly habits',
-                  value: 0.3,
-                ),
-                const SizedBox(height: 15,),
-                const PeriodHabitCard(
-                  title: 'Yearly habits',
-                  value: 0.9,
-                ),
-                const SizedBox(height: 50,),
-                Row(
-                  children: [
-                    Text(
-                      'Remaining today',
-                      style: TextStyle(
-                        fontFamily: 'Comfortaa',
-                        fontSize: 15,
-                        color: colors.sourceText,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                    const Expanded(child: SizedBox()),
-                    GestureDetector(
-                      onTap: (){},
-                      child: Text(
-                        'Show all',
-                        style: TextStyle(
-                          fontFamily: 'Comfortaa',
-                          fontSize: 15,
-                          color: colors.sourceCard,
-                        ),
-                        textAlign: TextAlign.end,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20,),
-                HabitsList(
-                  habits: dailyHabits,
-                )
-              ]
-            ),
-          ),
-        ),
-      ),
-    );
+    return context.watch<HabitsCubit>().state.isLoading ?
+      const LoadingCircle() :
+      const UserHabitsDetails();
   }
 }

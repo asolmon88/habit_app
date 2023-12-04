@@ -10,7 +10,7 @@ final appRouter = GoRouter(
     final isAuth = context.read<AuthCubit>().state.isAuth;
     final isCreatingAccount = context.read<AuthCubit>().state.isCreatingAccount;
     if (!isAuth && !isCreatingAccount) {
-      return '/addHabit';
+      return '/login';
     } else {
       return null;
     }
@@ -18,7 +18,9 @@ final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder:(context, state) => const HomeScreen(),
+      builder:(context, state) => HomeScreen(
+        user: context.read<AuthCubit>().state.email
+      ),
     ),
     GoRoute(
       path: '/login',
@@ -48,7 +50,7 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/addHabit',
-      builder:(context, state) => AddModifyHabitScreen(),
+      builder:(context, state) => AddHabitScreen(),
     ),
   ]
 );

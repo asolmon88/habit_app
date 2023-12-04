@@ -10,7 +10,7 @@ class FirestoreService {
   }
 
   Future<void> addHabit(String collectionPath, String document, String name,
-    double currentValue, double endValue, String metric, bool status)
+    String currentValue, String endValue, String metric, bool status)
     async {
       DocumentReference postRef = FirebaseFirestore.instance
         .collection(collectionPath).doc(document);
