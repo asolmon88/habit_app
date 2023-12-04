@@ -35,13 +35,13 @@ class _HabitsScreenState extends State<HabitsScreen> {
 
     final colors = Theme.of(context).extension<CustomColors>()!;
 
-    final habits = (context.watch<HabitsCubit>().state.dailyHabits)[0];
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 50,
       ),
-      body: SingleChildScrollView(
+      body: context.watch<HabitsCubit>().state.isLoading ?
+      const LoadingCircle() :
+      SingleChildScrollView(
         child: Center(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
@@ -75,11 +75,15 @@ class _HabitsScreenState extends State<HabitsScreen> {
                 ),
                 PeriodHabitCard(
                   title: widget.title,
-                  value: calculateProgress(habits),
+                  value: calculateProgress(
+                    (context.watch<HabitsCubit>().state.dailyHabits)[0]
+                  ),
                 ),
                 HabitsList(
-                  rowCount: (habits.keys.length/2).ceil(),
-                  habits: habits,
+                  rowCount: (
+                    (context.watch<HabitsCubit>().state.dailyHabits)[0]
+                    .keys.length/2).ceil(),
+                  habits: (context.watch<HabitsCubit>().state.dailyHabits)[0],
                   edit: _edit,
                 )
               ]

@@ -49,14 +49,14 @@ class FirestoreService {
         });
   }
 
-  // Future<void> updateUserData(String collectionPath, String email,
-  //   String field, String data) async {
-  //     await FirebaseFirestore.instance.collection(collectionPath)
-  //       .doc(email)
-  //       .update({
-  //         field: data
-  //       });
-  // }
+  Future<void> updateHabit(String email, String habitType,
+    String habitName, String data) async {
+      await FirebaseFirestore.instance.collection(email)
+        .doc(habitType)
+        .update({
+          '$habitName.current_value': data
+        });
+  }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserData(
     String collectionPath, String email
