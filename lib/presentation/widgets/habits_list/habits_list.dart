@@ -57,7 +57,10 @@ class _HabitsListState extends State<HabitsList> {
     final habitsCubit = context.watch<HabitsCubit>();
 
     return Column(
-      children: List.generate(
+      children: widget.habits == null || widget.habits!.isEmpty ?
+      (widget.habits!.isEmpty ? [const Text('No habits added')] :
+      [const Text('All done!')]) :
+      List.generate(
         widget.rowCount,
         (rowIndex) {
           return Row(
@@ -66,32 +69,26 @@ class _HabitsListState extends State<HabitsList> {
               widget.columnCount,
               (columnIndex) {
                 final index = rowIndex * widget.columnCount + columnIndex;
-                if (widget.habits != null && widget.habits!.isNotEmpty) {
-                  if (index != widget.habits!.length) {
-                    final title = widget.habits!.keys.elementAt(index);
-                    final currentHabit = widget.habits![title];
-                    return Flexible(
-                      child: HabitCard(
-                        title: title,
-                        value: int.parse(currentHabit['current_value'])
-                              /int.parse(currentHabit['end_value']),
-                        endValue: currentHabit['end_value'],
-                        currentValue: currentHabit['current_value'],
-                        metric: currentHabit['metric'],
-                        edit: widget.edit,
-                        onTap: () => editProgress(title, habitsCubit,
-                          context.read<AuthCubit>().state.email,
-                          currentHabit['end_value'],
-                          currentHabit['current_value']),
-                      ),
-                    );
-                  } else {
-                    return const Expanded(child: SizedBox());
-                  }
+                if (index != widget.habits!.length) {
+                  final title = widget.habits!.keys.elementAt(index);
+                  final currentHabit = widget.habits![title];
+                  return Flexible(
+                    child: HabitCard(
+                      title: title,
+                      value: int.parse(currentHabit['current_value'])
+                            /int.parse(currentHabit['end_value']),
+                      endValue: currentHabit['end_value'],
+                      currentValue: currentHabit['current_value'],
+                      metric: currentHabit['metric'],
+                      edit: widget.edit,
+                      onTap: () => editProgress(title, habitsCubit,
+                        context.read<AuthCubit>().state.email,
+                        currentHabit['end_value'],
+                        currentHabit['current_value']),
+                    ),
+                  );
                 } else {
-                  return widget.habits!.isEmpty ?
-                  const Text('No habits added') :
-                  const Text('All done!');
+                  return const Expanded(child: SizedBox());
                 }
               }
             ),

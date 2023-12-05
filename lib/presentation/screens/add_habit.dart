@@ -8,7 +8,7 @@ import 'package:habit_app/presentation/bloc.dart';
 import 'package:habit_app/presentation/widgets.dart';
 
 class AddHabitScreen extends StatelessWidget {
-  final String habitType;
+  final String? habitType;
 
   final _keyForm = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -18,7 +18,7 @@ class AddHabitScreen extends StatelessWidget {
 
   AddHabitScreen({
     super.key,
-    this.habitType = 'daily_habits',
+    this.habitType,
   });
 
   int currentValue(String text) {
@@ -114,7 +114,7 @@ class AddHabitScreen extends StatelessWidget {
                         if (isValid) {
                           context.read<HabitsCubit>().addHabit(
                             context.read<AuthCubit>().state.email,
-                            habitType,
+                            habitType!,
                             _nameController.text.trim(),
                             currentValue(_currentValueController.text)
                               .toString(),

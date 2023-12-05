@@ -47,6 +47,12 @@ class FirestoreService {
           'name': name,
           'lastname': lastname
         });
+      for (String element in
+        ['daily_habits', 'monthly_habits', 'yearly_habits']) {
+          await FirebaseFirestore.instance.collection(email)
+          .doc(element)
+          .set({});
+        }
   }
 
   Future<void> updateHabit(String email, String habitType,

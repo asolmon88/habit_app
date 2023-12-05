@@ -52,8 +52,11 @@ final appRouter = GoRouter(
       ),
     ),
     GoRoute(
-      path: '/addHabit',
-      builder:(context, state) => AddHabitScreen(),
+      path: '/addHabit/:habitType',
+      name: 'addHabit',
+      builder:(context, state) => AddHabitScreen(
+        habitType: state.pathParameters['habitType'],
+      ),
     ),
   ]
 );

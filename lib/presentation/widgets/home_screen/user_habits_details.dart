@@ -48,14 +48,16 @@ class UserHabitsDetails extends StatelessWidget {
                   onTap: () => context.push('/dailyHabits'),
                 ),
                 const SizedBox(height: 15,),
-                const PeriodHabitCard(
+                PeriodHabitCard(
                   title: 'Montly habits',
                   value: 0.3,
+                  onTap: () => context.push('/monthlyHabits'),
                 ),
                 const SizedBox(height: 15,),
-                const PeriodHabitCard(
+                PeriodHabitCard(
                   title: 'Yearly habits',
                   value: 0.9,
+                  onTap: () => context.push('/yearlyHabits'),
                 ),
                 const SizedBox(height: 50,),
                 Row(

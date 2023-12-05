@@ -54,7 +54,10 @@ class _HabitsScreenState extends State<HabitsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _edit == false ? GestureDetector(
-                      onTap: () => context.push('/addHabit'),
+                      onTap: () => context.pushNamed(
+                        'addHabit',
+                        pathParameters: {'habitType': widget.habitType}
+                      ),
                       child: Text(
                         'Add',
                         style: TextStyle(
