@@ -78,14 +78,14 @@ class _HabitsScreenState extends State<HabitsScreen> {
                 PeriodHabitCard(
                   title: widget.title,
                   value: calculateProgress(
-                    (context.watch<HabitsCubit>().state.dailyHabits)[0]
+                    context.watch<HabitsCubit>().state.dailyHabits
                   ),
                 ),
                 HabitsList(
                   rowCount: (
-                    (context.watch<HabitsCubit>().state.dailyHabits)[0]
+                    context.watch<HabitsCubit>().state.dailyHabits
                     .keys.length/2).ceil(),
-                  habits: (context.watch<HabitsCubit>().state.dailyHabits)[0],
+                  habits: context.watch<HabitsCubit>().state.dailyHabits,
                   edit: _edit,
                 )
               ]

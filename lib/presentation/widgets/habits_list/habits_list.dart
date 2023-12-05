@@ -66,7 +66,7 @@ class _HabitsListState extends State<HabitsList> {
               widget.columnCount,
               (columnIndex) {
                 final index = rowIndex * widget.columnCount + columnIndex;
-                if (widget.habits != null) {
+                if (widget.habits != null && widget.habits!.isNotEmpty) {
                   if (index != widget.habits!.length) {
                     final title = widget.habits!.keys.elementAt(index);
                     final currentHabit = widget.habits![title];
@@ -89,7 +89,9 @@ class _HabitsListState extends State<HabitsList> {
                     return const Expanded(child: SizedBox());
                   }
                 } else {
-                  return const Text('All done for today!');
+                  return widget.habits!.isEmpty ?
+                  const Text('No habits added') :
+                  const Text('All done!');
                 }
               }
             ),

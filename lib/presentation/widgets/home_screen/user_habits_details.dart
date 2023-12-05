@@ -17,7 +17,7 @@ class UserHabitsDetails extends StatelessWidget {
     final name = context.watch<AuthCubit>().state.name;
     // final lastname = context.watch<AuthCubit>().state.lastname;
 
-    final dailyHabits = (context.watch<HabitsCubit>().state.dailyHabits)[0];
+    final dailyHabits = context.watch<HabitsCubit>().state.dailyHabits;
     final dailyHabitsProgress = calculateProgress(dailyHabits);
 
     return Scaffold(

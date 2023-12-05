@@ -13,27 +13,24 @@ class HabitsCubit extends Cubit<HabitsState> {
     emit(
       state.copywith(
         isLoading: true,
-        dailyHabits: [],
-        monthlyHabits: [],
-        yearlyHabits: [],
+        dailyHabits: {},
+        monthlyHabits: {},
+        yearlyHabits: {},
       )
     );
-    List<Map<String, dynamic>> dailyHabits = [];
+    Map<String, dynamic> dailyHabits = {};
     // List<Map<String, dynamic>> monthlyHabits = [];
     // List<Map<String, dynamic>> yearlyHabits = [];
     FirestoreService().getHabits(collectionPath)
     .then((value) {
-      for(var element in value.docs) {
-        Map<String, dynamic> documentData = element.data();
-        dailyHabits.add(documentData);
-      }
+      dailyHabits = value.docs[0].data();
     }).then((value) {
       emit(
         state.copywith(
           isLoading: false,
           dailyHabits: dailyHabits,
-          monthlyHabits: [],
-          yearlyHabits: [],
+          monthlyHabits: {},
+          yearlyHabits: {},
         )
       );
     },);
