@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:habit_app/config/theme/custom_color.g.dart';
-import 'package:habit_app/infrastructure/utils.dart';
 import 'package:habit_app/presentation/bloc.dart';
-import 'package:habit_app/presentation/bloc/cubit/habits_cubit.dart';
 import 'package:habit_app/presentation/widgets.dart';
 
 class HomeScreen extends StatefulWidget {

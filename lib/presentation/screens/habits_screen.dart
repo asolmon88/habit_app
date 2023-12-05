@@ -9,11 +9,13 @@ import 'package:habit_app/presentation/widgets.dart';
 class HabitsScreen extends StatefulWidget {
   final String title;
   final bool edit;
+  final String habitType;
 
   const HabitsScreen({
     super.key,
     this.title = '',
     this.edit = false,
+    this.habitType = '',
   });
 
   @override
