@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class FirestoreService {
 
@@ -20,7 +21,8 @@ class FirestoreService {
           'end_value': endValue,
           'metric': metric,
           'status': status,
-          'past_dates': []
+          'past_dates': {},
+          'last_date': DateFormat('yyyy-MM-dd').format(DateTime.now()),
         }
       });
   }
@@ -60,8 +62,20 @@ class FirestoreService {
       await FirebaseFirestore.instance.collection(email)
         .doc(habitType)
         .update({
-          '$habitName.current_value': data
+          '$habitName.current_value': data,
         });
+  }
+
+  Future<void> completeHabit(String email, String habitType,
+    String habitName, String data, Map<String, dynamic> pastDates) async {
+      await FirebaseFirestore.instance.collection(email)
+        .doc(habitType)
+        .update({
+          '$habitName.current_value': data,
+          '$habitName.past_dates': pastDates,
+          '$habitName.status': true,
+        });
+      
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserData(

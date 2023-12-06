@@ -52,7 +52,30 @@ class HabitsCubit extends Cubit<HabitsState> {
       )
     );
     try {
-      await FirestoreService().updateHabit(email, habitType, habitName, data);
+      await FirestoreService().updateHabit(
+        email, habitType, habitName, data);
+      getHabits(email);
+    } catch (e) {
+      emit(
+        state.copywith(
+          isLoading: false,
+          error: true,
+          errorMessage: e.toString(), 
+        )
+      );
+    }
+  }
+
+  Future<void> completeHabit(String email, String habitType,
+    String habitName, String data, Map<String, dynamic> pastDates) async {
+    emit(
+      state.copywith(
+        isLoading: true,
+      )
+    );
+    try {
+      await FirestoreService().completeHabit(
+        email, habitType, habitName, data, pastDates);
       getHabits(email);
     } catch (e) {
       emit(

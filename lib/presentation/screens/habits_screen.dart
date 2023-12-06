@@ -35,6 +35,15 @@ class _HabitsScreenState extends State<HabitsScreen> {
   @override
   Widget build(BuildContext context) {
 
+    Map<String, dynamic> habits = {};
+    if (widget.habitType == 'daily_habits') {
+      habits = context.watch<HabitsCubit>().state.dailyHabits;
+    } else if (widget.habitType == 'monthly_habits') {
+      habits = context.watch<HabitsCubit>().state.monthlyHabits;
+    } else {
+      habits = context.watch<HabitsCubit>().state.yearlyHabits;
+    }
+
     final colors = Theme.of(context).extension<CustomColors>()!;
 
     return Scaffold(
@@ -80,16 +89,15 @@ class _HabitsScreenState extends State<HabitsScreen> {
                 ),
                 PeriodHabitCard(
                   title: widget.title,
-                  value: calculateProgress(
-                    context.watch<HabitsCubit>().state.dailyHabits
-                  ),
+                  value: calculateProgress(habits),
                 ),
                 HabitsList(
                   rowCount: (
-                    context.watch<HabitsCubit>().state.dailyHabits
+                    habits
                     .keys.length/2).ceil(),
-                  habits: context.watch<HabitsCubit>().state.dailyHabits,
+                  habits: habits,
                   edit: _edit,
+                  habitType: widget.habitType,
                 )
               ]
             ),

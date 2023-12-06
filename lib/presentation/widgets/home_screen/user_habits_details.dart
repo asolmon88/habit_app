@@ -16,9 +16,14 @@ class UserHabitsDetails extends StatelessWidget {
     // final email = context.watch<AuthCubit>().state.email;
     final name = context.watch<AuthCubit>().state.name;
     // final lastname = context.watch<AuthCubit>().state.lastname;
-
     final dailyHabits = context.watch<HabitsCubit>().state.dailyHabits;
     final dailyHabitsProgress = calculateProgress(dailyHabits);
+    final monthlyHabitsProgress = calculateProgress(
+      context.watch<HabitsCubit>().state.monthlyHabits
+    );
+    final yearlyHabitsProgress = calculateProgress(
+      context.watch<HabitsCubit>().state.yearlyHabits
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -50,13 +55,13 @@ class UserHabitsDetails extends StatelessWidget {
                 const SizedBox(height: 15,),
                 PeriodHabitCard(
                   title: 'Montly habits',
-                  value: 0.3,
+                  value: monthlyHabitsProgress,
                   onTap: () => context.push('/monthlyHabits'),
                 ),
                 const SizedBox(height: 15,),
                 PeriodHabitCard(
                   title: 'Yearly habits',
-                  value: 0.9,
+                  value: yearlyHabitsProgress,
                   onTap: () => context.push('/yearlyHabits'),
                 ),
                 const SizedBox(height: 50,),
@@ -88,7 +93,7 @@ class UserHabitsDetails extends StatelessWidget {
                 ),
                 const SizedBox(height: 20,),
                 HabitsList(
-                  habits: dailyHabits,
+                  habits: filterHabitsByStatus(dailyHabits, false),
                 )
               ]
             ),

@@ -12,3 +12,13 @@ double calculateProgress(Map<String, dynamic> habitsList) {
   }
   return 0;
 }
+
+Map<String, dynamic> filterHabitsByStatus(
+  Map<String, dynamic> habits,
+  bool desideredStatus
+) {
+  return habits.entries
+      .where((entry) => entry.value["status"] == desideredStatus)
+      .map((entry) => MapEntry(entry.key, entry.value))
+      .fold({}, (previous, entry) => previous..[entry.key] = entry.value);
+}
