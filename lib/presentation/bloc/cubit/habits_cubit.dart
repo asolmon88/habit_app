@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:habit_app/infrastructure/services/firestore_service.dart';
@@ -13,27 +12,26 @@ class HabitsCubit extends Cubit<HabitsState> {
     emit(
       state.copywith(
         isLoading: true,
-        dailyHabits: [],
-        monthlyHabits: [],
-        yearlyHabits: [],
+        dailyHabits: {},
+        monthlyHabits: {},
+        yearlyHabits: {},
       )
     );
-    List<Map<String, dynamic>> dailyHabits = [];
-    // List<Map<String, dynamic>> monthlyHabits = [];
-    // List<Map<String, dynamic>> yearlyHabits = [];
+    Map<String, dynamic> dailyHabits = {};
+    Map<String, dynamic> monthlyHabits = {};
+    Map<String, dynamic> yearlyHabits = {};
     FirestoreService().getHabits(collectionPath)
     .then((value) {
-      for(var element in value.docs) {
-        Map<String, dynamic> documentData = element.data();
-        dailyHabits.add(documentData);
-      }
+      dailyHabits = value.docs[0].data();
+      monthlyHabits = value.docs[1].data();
+      yearlyHabits = value.docs[2].data();
     }).then((value) {
       emit(
         state.copywith(
           isLoading: false,
           dailyHabits: dailyHabits,
-          monthlyHabits: [],
-          yearlyHabits: [],
+          monthlyHabits: monthlyHabits,
+          yearlyHabits: yearlyHabits,
         )
       );
     },);
@@ -55,7 +53,30 @@ class HabitsCubit extends Cubit<HabitsState> {
       )
     );
     try {
-      await FirestoreService().updateHabit(email, habitType, habitName, data);
+      await FirestoreService().updateHabit(
+        email, habitType, habitName, data);
+      getHabits(email);
+    } catch (e) {
+      emit(
+        state.copywith(
+          isLoading: false,
+          error: true,
+          errorMessage: e.toString(), 
+        )
+      );
+    }
+  }
+
+  Future<void> completeHabit(String email, String habitType,
+    String habitName, String data, Map<String, dynamic> pastDates) async {
+    emit(
+      state.copywith(
+        isLoading: true,
+      )
+    );
+    try {
+      await FirestoreService().completeHabit(
+        email, habitType, habitName, data, pastDates);
       getHabits(email);
     } catch (e) {
       emit(

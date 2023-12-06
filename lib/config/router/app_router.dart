@@ -34,23 +34,29 @@ final appRouter = GoRouter(
       path: '/dailyHabits',
       builder:(context, state) => const HabitsScreen(
         title: 'Daily Habits',
+        habitType: 'daily_habits',
       ),
     ),
     GoRoute(
       path: '/monthlyHabits',
       builder:(context, state) => const HabitsScreen(
         title: 'Montly Habits',
+        habitType: 'monthly_habits',
       ),
     ),
     GoRoute(
       path: '/yearlyHabits',
       builder:(context, state) => const HabitsScreen(
         title: 'Yearly Habits',
+        habitType: 'yearly_habits',
       ),
     ),
     GoRoute(
-      path: '/addHabit',
-      builder:(context, state) => AddHabitScreen(),
+      path: '/addHabit/:habitType',
+      name: 'addHabit',
+      builder:(context, state) => AddHabitScreen(
+        habitType: state.pathParameters['habitType'],
+      ),
     ),
   ]
 );

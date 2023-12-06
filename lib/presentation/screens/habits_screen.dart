@@ -9,11 +9,13 @@ import 'package:habit_app/presentation/widgets.dart';
 class HabitsScreen extends StatefulWidget {
   final String title;
   final bool edit;
+  final String habitType;
 
   const HabitsScreen({
     super.key,
     this.title = '',
     this.edit = false,
+    this.habitType = '',
   });
 
   @override
@@ -32,6 +34,15 @@ class _HabitsScreenState extends State<HabitsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    Map<String, dynamic> habits = {};
+    if (widget.habitType == 'daily_habits') {
+      habits = context.watch<HabitsCubit>().state.dailyHabits;
+    } else if (widget.habitType == 'monthly_habits') {
+      habits = context.watch<HabitsCubit>().state.monthlyHabits;
+    } else {
+      habits = context.watch<HabitsCubit>().state.yearlyHabits;
+    }
 
     final colors = Theme.of(context).extension<CustomColors>()!;
 
@@ -52,7 +63,10 @@ class _HabitsScreenState extends State<HabitsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _edit == false ? GestureDetector(
-                      onTap: () => context.push('/addHabit'),
+                      onTap: () => context.pushNamed(
+                        'addHabit',
+                        pathParameters: {'habitType': widget.habitType}
+                      ),
                       child: Text(
                         'Add',
                         style: TextStyle(
@@ -75,16 +89,15 @@ class _HabitsScreenState extends State<HabitsScreen> {
                 ),
                 PeriodHabitCard(
                   title: widget.title,
-                  value: calculateProgress(
-                    (context.watch<HabitsCubit>().state.dailyHabits)[0]
-                  ),
+                  value: calculateProgress(habits),
                 ),
                 HabitsList(
                   rowCount: (
-                    (context.watch<HabitsCubit>().state.dailyHabits)[0]
+                    habits
                     .keys.length/2).ceil(),
-                  habits: (context.watch<HabitsCubit>().state.dailyHabits)[0],
+                  habits: habits,
                   edit: _edit,
+                  habitType: widget.habitType,
                 )
               ]
             ),
