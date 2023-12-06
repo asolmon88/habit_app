@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_app/config/router/app_router.dart';
 import 'package:habit_app/config/theme/app_theme.dart';
 import 'package:habit_app/firebase_options.dart';
+import 'package:habit_app/infrastructure/services/firestore_service.dart';
 import 'package:habit_app/presentation/bloc.dart';
 import 'package:habit_app/presentation/bloc/cubit/habits_cubit.dart';
 
@@ -13,6 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirestoreService().initNotifications();
   
   runApp(
     MultiBlocProvider(
