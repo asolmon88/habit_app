@@ -17,6 +17,7 @@ dependencies:
   go_router: ^12.1.1
   google_sign_in: ^6.1.6
   intl: ^0.18.1
+  flutter_native_splash: ^2.3.6
 
 dev_dependencies:
   flutter_test:
@@ -39,3 +40,9 @@ flutter:
   uses-material-design: true
   assets:
     - lib/assets/images/
+
+flutter_native_splash:
+  android: true
+  ios: true
+  color: "EBE3D5"
+  image: lib/assets/images/logo2.png
