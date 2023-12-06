@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:habit_app/infrastructure/services/firestore_service.dart';
@@ -19,18 +18,20 @@ class HabitsCubit extends Cubit<HabitsState> {
       )
     );
     Map<String, dynamic> dailyHabits = {};
-    // List<Map<String, dynamic>> monthlyHabits = [];
-    // List<Map<String, dynamic>> yearlyHabits = [];
+    Map<String, dynamic> monthlyHabits = {};
+    Map<String, dynamic> yearlyHabits = {};
     FirestoreService().getHabits(collectionPath)
     .then((value) {
       dailyHabits = value.docs[0].data();
+      monthlyHabits = value.docs[1].data();
+      yearlyHabits = value.docs[2].data();
     }).then((value) {
       emit(
         state.copywith(
           isLoading: false,
           dailyHabits: dailyHabits,
-          monthlyHabits: {},
-          yearlyHabits: {},
+          monthlyHabits: monthlyHabits,
+          yearlyHabits: yearlyHabits,
         )
       );
     },);
